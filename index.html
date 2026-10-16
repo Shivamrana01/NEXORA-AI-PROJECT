@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080812">
+<meta name="description" content="NEXORA — Discover AI, futuristic technology and digital innovation.">
+<title>NEXORA — Beyond Tomorrow</title>
+
+<style>
+:root {
+  --bg:#080812;
+  --surface:#111121;
+  --text:#f5f3ff;
+  --muted:#aaa7c2;
+  --purple:#a78bfa;
+  --cyan:#67e8f9;
+  --border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.container{width:min(1120px,90%);margin:auto}
+.ambient{position:fixed;width:350px;height:350px;border-radius:50%;filter:blur(120px);opacity:.15;pointer-events:none;z-index:-1}
+.ambient.one{background:#8b5cf6;top:60px;left:-200px}
+.ambient.two{background:#06b6d4;right:-200px;top:450px}
+
+nav{position:sticky;top:0;z-index:20;background:rgba(8,8,18,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:1.5rem;font-weight:900;letter-spacing:3px}
+.logo span{color:var(--purple)}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{color:var(--muted);font-size:.9rem}
+.nav-links a:hover{color:var(--cyan)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 18px;border:1px solid transparent;border-radius:12px;background:linear-gradient(120deg,var(--purple),var(--cyan));color:#080812;font-weight:750;transition:.25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 28px #8b5cf633}
+.btn.secondary{background:rgba(255,255,255,.04);border-color:var(--border);color:var(--text)}
+.icon-btn{background:transparent;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 12px}
+.menu-btn{display:none}
+
+.hero{min-height:640px;padding:90px 0;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:35px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:50px;padding:7px 12px;color:var(--cyan);font-size:.78rem;margin-bottom:23px;background:#ffffff06}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+h1{font-size:clamp(3.2rem,7vw,6rem);line-height:1.02;letter-spacing:-4px;margin-bottom:24px}
+.gradient{background:linear-gradient(110deg,#c4b5fd,#67e8f9);color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero p{max-width:540px;color:var(--muted);font-size:1.05rem;margin-bottom:27px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.note{font-size:.8rem!important;margin-top:20px;margin-bottom:0!important}
+.visual{min-height:400px;display:grid;place-items:center;position:relative}
+.orbit{position:absolute;width:300px;height:300px;border:1px solid #a78bfa55;border-radius:50%;animation:spin 18s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 20px var(--cyan)}
+.orbit:before{top:35px;left:45px}.orbit:after{right:35px;bottom:45px;background:var(--purple)}
+.orbit.two{width:220px;height:360px;border-color:#67e8f944;animation-direction:reverse}
+.core{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#ede9fe,#8b5cf6 35%,#312e81 68%,#080812 85%);box-shadow:0 0 75px #8b5cf677,inset -15px -20px 30px #080812;animation:float 5s ease-in-out infinite}
+.visual-label{position:absolute;bottom:5px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px 15px;font-size:.78rem;color:var(--muted)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-14px)}}
+
+section{padding:80px 0}
+.section-head{max-width:650px;margin-bottom:35px}
+.kicker{color:var(--cyan);font-size:.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:800}
+h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:-1.5px;margin:10px 0}
+.section-head p,.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{padding:26px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(145deg,#ffffff0b,#ffffff03);transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);border-color:#a78bfa88}
+.card-icon{height:48px;width:48px;display:grid;place-items:center;border-radius:14px;background:#a78bfa1e;font-size:1.45rem;margin-bottom:18px}
+.card h3{font-size:1.08rem;margin-bottom:8px}
+.card p{font-size:.91rem;color:var(--muted)}
+.searchbox{width:100%;max-width:450px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 15px;color:var(--text);margin:0 0 25px;outline:none}
+.searchbox:focus{border-color:var(--purple)}
+.no-results{color:var(--muted);padding:20px 0}
+
+.demo-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}
+.panel{border:1px solid var(--border);border-radius:20px;padding:24px;background:var(--surface)}
+.panel label{display:block;font-weight:700;margin-bottom:10px}
+.input-row{display:flex;gap:9px}
+.field{min-width:0;width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);outline:none}
+.field:focus{border-color:var(--purple)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.chip{background:#ffffff08;color:var(--muted);border:1px solid var(--border);border-radius:30px;padding:7px 10px;font-size:.78rem}
+.chip:hover{border-color:var(--purple);color:var(--text)}
+.response-label{color:var(--cyan);font-size:.78rem;font-weight:800;margin-bottom:12px}
+.output{min-height:210px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted);font-size:.92rem}
+.disclaimer{font-size:.76rem;color:var(--muted);margin-top:15px}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.step{padding:23px;border:1px solid var(--border);border-radius:16px}
+.step-num{font-size:.8rem;color:var(--cyan);font-weight:800;letter-spacing:2px}
+.step h3{margin:8px 0}
+.step p{color:var(--muted);font-size:.9rem}
+
+.cta{text-align:center;border:1px solid #a78bfa44;border-radius:25px;padding:55px 25px;background:radial-gradient(ellipse at top,#8b5cf626,transparent 70%)}
+.cta p{max-width:550px;color:var(--muted);margin:12px auto 23px}
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px}
+.contact-form{display:grid;gap:12px}
+.contact-form textarea{min-height:120px;resize:vertical}
+footer{border-top:1px solid var(--border);margin-top:65px;padding:25px 0;color:var(--muted);font-size:.82rem}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s,transform .65s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+body.light{--bg:#f5f4ff;--surface:#fff;--text:#19152d;--muted:#625d79;--border:rgba(30,25,70,.15)}
+body.light nav{background:#f5f4ffee}
+body.light .card{background:#ffffffc9}
+body.light .btn.secondary,body.light .chip,body.light .icon-btn{color:var(--text);background:#1e19400a}
+body.light .visual-label{background:#fff}
+body.light .ambient{opacity:.1}
+
+@media(max-width:800px){
+ .hero{grid-template-columns:1fr;padding:65px 0;gap:10px}
+ .visual{min-height:350px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .demo-grid,.contact-grid{grid-template-columns:1fr}
+ .nav-links{gap:14px}
+ .nav-cta{display:none}
+ .steps{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ .nav-inner{min-height:68px;flex-wrap:wrap}
+ .menu-btn{display:inline-block}
+ .nav-links{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;padding:5px 0 17px}
+ .nav-links.open{display:flex}
+ .nav-links a{padding:7px}
+ .logo{font-size:1.25rem}
+ h1{letter-spacing:-2px}
+ .grid{grid-template-columns:1fr}
+ .orbit{width:250px;height:250px}
+ .orbit.two{width:195px;height:320px}
+ .core{width:135px;height:135px}
+ .input-row{flex-direction:column}
+ .input-row .btn{width:100%}
+ section{padding:60px 0}
+ .cta{padding:38px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="logo" href="#home">NEX<span>ORA</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#demo">AI Demo</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light theme">☀️</button>
+      <a class="btn nav-cta" href="#demo">Explore AI ↗</a>
+      <button class="icon-btn menu-btn" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<header class="container hero" id="home">
+  <div class="reveal">
+    <div class="eyebrow"><span class="dot"></span> THE FUTURE STARTS HERE</div>
+    <h1>Beyond the<br><span class="gradient">ordinary.</span></h1>
+    <p>Discover a new dimension of artificial intelligence, creative thinking, and digital experiences. Welcome to the next era of technology.</p>
+    <div class="actions">
+      <a class="btn" href="#features">Discover NEXORA ↗</a>
+      <a class="btn secondary" href="#demo">Try AI Demo</a>
+    </div>
+    <p class="note">✦ Curiosity meets technology. Possibilities begin here.</p>
+  </div>
+  <div class="visual reveal" aria-label="Animated futuristic orb">
+    <div class="orbit"></div><div class="orbit two"></div><div class="core"></div>
+    <div class="visual-label">NEXORA CORE · SYSTEM ONLINE</div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Explore the possibilities</span>
+      <h2>Technology without limits.</h2>
+      <p>Explore the ideas, tools, and innovations shaping our digital future.</p>
+    </div>
+    <input class="searchbox" id="featureSearch" type="search" placeholder="Search technology features..." aria-label="Search features">
+    <div class="grid" id="featureGrid">
+      <article class="card reveal" data-search="artificial intelligence ai assistants"><div class="card-icon">✧</div><h3>Artificial Intelligence</h3><p>Explore AI systems, intelligent assistants, and smarter ways to solve problems.</p></article>
+      <article class="card reveal" data-search="coding development software programming"><div class="card-icon">⌘</div><h3>Next-Gen Computing</h3><p>Discover modern software, programming, and the technology behind digital products.</p></article>
+      <article class="card reveal" data-search="creative design web interfaces"><div class="card-icon">◈</div><h3>Creative Technology</h3><p>Combine design and technology to create engaging digital experiences.</p></article>
+      <article class="card reveal" data-search="data analytics information insights"><div class="card-icon">⌬</div><h3>Data & Insights</h3><p>Turn information into useful ideas with analysis and data-driven thinking.</p></article>
+      <article class="card reveal" data-search="robotics future emerging technology"><div class="card-icon">⟡</div><h3>Future Concepts</h3><p>Explore emerging ideas in robotics, automation, and connected systems.</p></article>
+      <article class="card reveal" data-search="innovation projects learning digital"><div class="card-icon">↗</div><h3>Digital Innovation</h3><p>Turn your curiosity into practical projects and new digital solutions.</p></article>
+    </div>
+    <p class="no-results" id="noResults" hidden>No matching features found. Try another search.</p>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Interactive experience</span>
+      <h2>Meet your AI sandbox.</h2>
+      <p>Enter a prompt and explore a simple demonstration that runs directly in your browser.</p>
+    </div>
+    <div class="demo-grid">
+      <div class="panel reveal">
+        <form id="promptForm">
+          <label for="prompt">What would you like to explore?</label>
+          <div class="input-row">
+            <input class="field" id="prompt" maxlength="300" placeholder="Ask about AI, coding..." required>
+            <button class="btn" type="submit">Run ↗</button>
+          </div>
+        </form>
+        <div class="chips">
+          <button class="chip" data-prompt="Explain AI in simple words" type="button">Explain AI</button>
+          <button class="chip" data-prompt="Give me a coding project idea" type="button">Coding idea</button>
+          <button class="chip" data-prompt="How can I learn technology?" type="button">Learning path</button>
+          <button class="chip" data-prompt="How do I build a website?" type="button">Build a website</button>
+        </div>
+      </div>
+      <div class="panel reveal">
+        <div class="response-label">✦ NEXORA RESPONSE</div>
+        <div class="output" id="output" aria-live="polite">System ready.
+
+Choose a suggestion or enter a prompt to begin.</div>
+        <p class="disclaimer">Demo mode: responses are generated from built-in examples, not a live AI service.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Our approach</span>
+      <h2>From curiosity to creation.</h2>
+      <p>Every big idea can start with one small experiment.</p>
+    </div>
+    <div class="steps">
+      <article class="step reveal"><span class="step-num">01 / IMAGINE</span><h3>Start with an idea</h3><p>Find a question, challenge, or opportunity that inspires you.</p></article>
+      <article class="step reveal"><span class="step-num">02 / EXPERIMENT</span><h3>Learn by building</h3><p>Use code, design, and testing to turn ideas into experiments.</p></article>
+      <article class="step reveal"><span class="step-num">03 / CREATE</span><h3>Make it real</h3><p>Improve your experiment until it becomes a useful project.</p></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta reveal">
+      <span class="kicker">Your next chapter</span>
+      <h2>Ready to explore <span class="gradient">what's next?</span></h2>
+      <p>The future belongs to curious minds that keep learning, creating, and experimenting.</p>
+      <a class="btn" href="#demo">Start Exploring ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Get in touch</span>
+      <h2>Let's start a conversation.</h2>
+      <p>Have a project idea or a question? Prepare a message using the form below.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <h3>Have an idea?</h3>
+        <p class="muted" style="margin-top:10px">Share your thoughts, technology interests, or ideas for a future project.</p>
+        <p class="muted" style="margin-top:18px">✦ Think creatively. Build thoughtfully.</p>
+      </div>
+      <form class="panel contact-form reveal" id="contactForm">
+        <label for="contactName">Your name</label>
+        <input class="field" id="contactName" maxlength="80" placeholder="Enter your name" required>
+        <label for="contactEmail">Your email</label>
+        <input class="field" id="contactEmail" type="email" maxlength="150" placeholder="you@example.com" required>
+        <label for="contactMessage">Your message</label>
+        <textarea class="field" id="contactMessage" maxlength="2000" placeholder="Tell us about your idea..." required></textarea>
+        <button class="btn" type="submit">Prepare email ↗</button>
+        <p class="disclaimer">This form opens your default email application. It does not send or store messages by itself.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="logo" href="#home">NEX<span>ORA</span></a>
+    <span>Designed for tomorrow. Built with curiosity.</span>
+    <span>© <span id="year"></span> NEXORA</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Mobile navigation
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  });
+});
+
+// Dark and light mode, saved for the next visit
+const themeToggle = document.getElementById("themeToggle");
+
+function setTheme(theme) {
+  const isLight = theme === "light";
+  document.body.classList.toggle("light", isLight);
+  themeToggle.textContent = isLight ? "🌙" : "☀️";
+  themeToggle.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
+  try { localStorage.setItem("nexora-theme", theme); } catch (error) {}
+}
+
+let savedTheme = "dark";
+try { savedTheme = localStorage.getItem("nexora-theme") || "dark"; } catch (error) {}
+setTheme(savedTheme);
+
+themeToggle.addEventListener("click", () => {
+  setTheme(document.body.classList.contains("light") ? "dark" : "light");
+});
+
+// Scroll reveal animations
+const revealItems = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealItems.forEach(item => observer.observe(item));
+} else {
+  revealItems.forEach(item => item.classList.add("visible"));
+}
+
+// Search feature cards
+const featureSearch = document.getElementById("featureSearch");
+const featureCards = [...document.querySelectorAll("#featureGrid .card")];
+const noResults = document.getElementById("noResults");
+
+featureSearch.addEventListener("input", () => {
+  const query = featureSearch.value.trim().toLowerCase();
+  let visibleCount = 0;
+
+  featureCards.forEach(card => {
+    const content = (card.innerText + " " + card.dataset.search).toLowerCase();
+    const match = content.includes(query);
+    card.hidden = !match;
+    if (match) visibleCount++;
+  });
+
+  noResults.hidden = visibleCount !== 0;
+});
+
+// Local AI demo: preset responses, no API connection
+const promptForm = document.getElementById("promptForm");
+const promptInput = document.getElementById("prompt");
+const output = document.getElementById("output");
+
+function getLocalResponse(question) {
+  const q = question.toLowerCase();
+
+  if (/\b(hi|hello|hey)\b/.test(q)) {
+    return "WELCOME TO NEXORA ✦\n\nYour local demo assistant is ready. Try asking about AI, coding, or website building.";
+  }
+
+  if (q.includes("ai") || q.includes("artificial intelligence")) {
+    return "ARTIFICIAL INTELLIGENCE\n\nAI is technology that helps computers perform tasks such as recognizing patterns, understanding language, and making predictions.\n\nExample: A recommendation system suggests videos based on your interests.\n\nExplore next: machine learning, data, and responsible AI.";
+  }
+
+  if (q.includes("coding") || q.includes("project") || q.includes("program")) {
+    return "PROJECT IDEA: SMART STUDY PLANNER\n\n1. Create the layout with HTML.\n2. Style it using CSS.\n3. Add tasks using JavaScript.\n4. Let users mark tasks complete.\n5. Save tasks with browser storage.\n\nStart with one feature, test it, and then expand.";
+  }
+
+  if (q.includes("learn") || q.includes("roadmap") || q.includes("technology")) {
+    return "YOUR TECHNOLOGY LEARNING PATH\n\n1. HTML and CSS for web structure and design.\n2. JavaScript for interactive websites.\n3. Git and GitHub for version control.\n4. Python for programming and AI fundamentals.\n5. Small projects to practise your skills.\n\nFocus on understanding and building consistently.";
+  }
+
+  if (q.includes("website") || q.includes("web design") || q.includes("html")) {
+    return "HOW TO BUILD A WEBSITE\n\nHTML defines the content and structure.\nCSS controls colors, layouts, and animations.\nJavaScript adds interactions and behaviour.\n\nTest your site on mobile and desktop, then publish it using a static hosting service.";
+  }
+
+  return "EXPLORATION NOTE\n\nYour question: " + question +
+    "\n\nThis demo uses preset responses and cannot answer every question like a real AI model.\n\nTry asking about AI, coding projects, learning technology, or websites.";
+}
+
+promptForm.addEventListener("submit", event => {
+  event.preventDefault();
+  const question = promptInput.value.trim();
+
+  if (!question) {
+    output.textContent = "Please enter a prompt first.";
+    return;
+  }
+
+  output.textContent = "Processing your prompt...";
+  window.setTimeout(() => {
+    output.textContent = getLocalResponse(question);
+  }, 250);
+});
+
+document.querySelectorAll("[data-prompt]").forEach(button => {
+  button.addEventListener("click", () => {
+    promptInput.value = button.dataset.prompt;
+    promptInput.focus();
+  });
+});
+
+// Contact form prepares an email in the visitor's default email app.
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+
+  if (!name || !email || !message) {
+    alert("Please complete all fields.");
+    return;
+  }
+
+  const subject = encodeURIComponent("NEXORA website enquiry");
+  const body = encodeURIComponent(
+    "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message
+  );
+
+  alert("Your email application will open. Check the message and choose Send there.");
+  window.location.href = "mailto:?subject=" + subject + "&body=" + body;
+});
+</script>
+</body>
+</html>
